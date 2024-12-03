@@ -29,7 +29,8 @@ function getMultiplicationResultsWithDoAndDont(input: string) {
   // remove all the code between don't() and do()
   while (inputWithoutDonts.indexOf("don't()") >= 0) {
     const dontIndex = inputWithoutDonts.indexOf("don't()");
-    const nextDoIndex = inputWithoutDonts.indexOf('do()', dontIndex) ?? inputWithoutDonts.length - 1;
+    let nextDoIndex = inputWithoutDonts.indexOf('do()', dontIndex);
+    nextDoIndex = nextDoIndex >= 0 ? nextDoIndex : inputWithoutDonts.length;
 
     inputWithoutDonts = inputWithoutDonts.substring(0, dontIndex) + inputWithoutDonts.substring(nextDoIndex);
   }
