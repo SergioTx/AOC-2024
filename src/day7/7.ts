@@ -46,8 +46,8 @@ function getValidSum(input: string[][], operatorOptions: string[][]) {
   return sum;
 }
 
-const resultA = getValidSum(input, OPERATORS_A);
-const resultB = getValidSum(input, OPERATORS_B);
+const resultA = 'DONE'; // getValidSum(input, OPERATORS_A);
+const resultB = 'DONE'; // getValidSum(input, OPERATORS_B);
 
 console.log('7A: ', resultA);
 console.log('7B: ', resultB);
