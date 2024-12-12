@@ -9,3 +9,4 @@ import './src/day8/8.ts';
 import './src/day9/9.ts';
 
 import './src/day10/10.ts';
+import './src/day11/11.ts';
