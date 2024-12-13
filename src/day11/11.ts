@@ -1,43 +1,50 @@
 const file = Deno.readTextFileSync('src/day11/input11.txt');
 const input = file.split(' ');
 
-const branches = [] as number[];
+const dictionary = new Map();
 
-function blinkRecursive(stone: string, blinks: number, branch = 0): number {
+function blinkRecursive(stone: string, blinks: number, branch = stone): number {
   if (blinks <= 0) {
-    if (!branches.includes(branch)) {
-      const date = new Date().toLocaleTimeString('es');
-      console.log({ blinks, branch, date });
-      branches.push(branch);
-    }
     return 1;
   }
 
+  if (dictionary.has(`${blinks}---${stone}`)) {
+    return dictionary.get(`${blinks}---${stone}`);
+  }
+
+  const blinksLeft = blinks - 1;
   if (stone === '0') {
-    return blinkRecursive('1', blinks - 1, branch);
+    const response = blinkRecursive('1', blinksLeft, branch);
+    dictionary.set(`${blinksLeft}---1`, response);
+    return response;
   }
   if (stone.length % 2 === 0) {
     const firstDigit = String(+stone.substring(0, stone.length / 2));
     const secondDigit = String(+stone.substring(stone.length / 2));
-    return blinkRecursive(firstDigit, blinks - 1, branch) + blinkRecursive(secondDigit, blinks - 1, branch + 1);
+
+    const firstResponse = blinkRecursive(firstDigit, blinksLeft, branch);
+    const secondResponse = blinkRecursive(secondDigit, blinksLeft, branch + '-' + secondDigit);
+
+    dictionary.set(`${blinksLeft}---${firstDigit}`, firstResponse);
+    dictionary.set(`${blinksLeft}---${secondDigit}`, secondResponse);
+    return firstResponse + secondResponse;
   }
-  return blinkRecursive(String(+stone * 2024), blinks - 1, branch);
+  const nextStone = String(+stone * 2024);
+  const response = blinkRecursive(nextStone, blinksLeft, branch);
+  dictionary.set(`${blinksLeft}---${nextStone}`, response);
+  return response;
 }
 
 function getNumStonesAfterBlinking(input: string[], blinks: number) {
-  const result = input.reduce((acc, stone, index) => {
-    console.log({ stone });
+  const result = input.reduce((acc, stone) => {
     const blinkSum = blinkRecursive(stone, blinks);
-    console.log({ stone, index, blinkSum });
-    // Temporary store data just in case
-    Deno.writeTextFileSync(`src/day11/temp/${stone}_sum.txt`, String(blinkSum));
     return acc + blinkSum;
   }, 0);
   return result;
 }
 
-const resultA = 'DONE'; //getNumStonesAfterBlinking(input, 25);
-const resultB = '-'; // getNumStonesAfterBlinking(input, 75);
+const resultA = getNumStonesAfterBlinking(input, 25);
+const resultB = getNumStonesAfterBlinking(input, 75);
 
 console.log('11A: ', resultA);
 console.log('11B: ', resultB);
