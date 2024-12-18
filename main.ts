@@ -13,3 +13,4 @@ import './src/day11/11.ts';
 import './src/day12/12.ts';
 import './src/day13/13.ts';
 import './src/day14/14.ts';
+import './src/day15/15.ts';
