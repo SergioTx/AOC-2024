@@ -28,7 +28,6 @@ function getPuzzleAndInstructions(input: string[], scaleUp = false) {
   }
 
   const instructions = input[1].replaceAll('\n', '').split('');
-  console.log({ instructions });
 
   return {
     puzzle,
@@ -323,7 +322,7 @@ function sumBoxesCoordinates(input: string[], scaleUp = false): number {
   const { puzzle, instructions } = getPuzzleAndInstructions(input, scaleUp);
   const puzzleEnd = performAllInstructions(puzzle, instructions);
 
-  console.log(showMap(puzzleEnd));
+  // console.log(showMap(puzzleEnd));
 
   const sumBoxCoordinates = puzzleEnd.reduce((acc, line, topIndex) => {
     return (
