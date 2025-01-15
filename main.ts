@@ -14,4 +14,14 @@ import './src/day12/12.ts';
 import './src/day13/13.ts';
 import './src/day14/14.ts';
 import './src/day15/15.ts';
+import './src/day16/16.ts';
+import './src/day17/17.ts';
+import './src/day18/18.ts';
 import './src/day19/19.ts';
+
+import './src/day20/20.ts';
+import './src/day21/21.ts';
+import './src/day22/22.ts';
+import './src/day23/23.ts';
+import './src/day24/24.ts';
+import './src/day25/25.ts';
